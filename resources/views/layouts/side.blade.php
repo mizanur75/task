@@ -32,7 +32,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('admin.task.index')}}"><i class="fa fa-circle-o"></i> All Task</a></li>
-            <li><a href="{{route('admin.task.create')}}"><i class="fa fa-circle-o"></i> Create Task</a></li>
+            <!-- <li><a href="{{route('admin.task.create')}}"><i class="fa fa-circle-o"></i> Create Task</a></li> -->
           </ul>
         </li>
       </ul>

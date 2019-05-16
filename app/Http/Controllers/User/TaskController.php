@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Task;
 use Auth;
+use DB;
 
 class TaskController extends Controller
 {
@@ -38,11 +39,18 @@ class TaskController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        DB::table('tasks')->where('id', $id)->update(['status'=> 2]);
+
     }
 
     public function destroy($id)
     {
         //
+    }
+    public function userupdate(Request $request)
+    {
+        $id = $request->id;
+        DB::table('tasks')->where('id', $id)->update(['status'=> 2]);
+
     }
 }

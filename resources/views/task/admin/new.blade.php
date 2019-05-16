@@ -64,11 +64,6 @@
     $(function () {
         $('#task').on('submit', function(event){
             event.preventDefault();
-            var title = $("#title").val();
-            var description = $("#description").val();
-            var file = $("#file").val();
-            var deadline = $("#deadline").val();
-            var user_id = $("#user_id").val();
             $.ajax({
                 url: "{{route('admin.task.store')}}",
                 method: "POST",
