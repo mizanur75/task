@@ -96,7 +96,7 @@
 <script src="{{asset('task/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- Morris.js')}} charts -->
 <script src="{{asset('task/bower_components/raphael/raphael.min.js')}}"></script>
-<script src="{{asset('task/bower_components/morris.js')}}/morris.min.js')}}"></script>
+<script src="{{asset('task/bower_components/morris.js/morris.min.js')}}"></script>
 <!-- Sparkline -->
 <script src="{{asset('task/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
 <!-- jvectormap -->

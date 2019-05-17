@@ -137,6 +137,7 @@
 
 <script src="{{asset('task/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('task/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 
 <script>
   $(function () {
@@ -154,6 +155,7 @@
       success: function(res){
         console.log(res);   
         $('#example1').DataTable().ajax.reload();
+        $("#example1").dataTable().fnReloadAjax();
       }
     });
   }
@@ -172,10 +174,10 @@
                 cache: false,
                 enctype: 'multipart/form-data',
                 success: function(data){
-                  console.log(data);
+                  console.log(data.message);
                   $('#addmodal').modal('hide');
-                  $('#example1 form')[0].reset();
-                  $('#example1').DataTable().ajax.reload();
+                  $('#task')[0].reset();
+                  $("#example1").dataTable().fnReloadAjax();
                 }
             });
         });
