@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Task;
 use App\User;
+use DataTables;
 class TaskController extends Controller
 {
 
@@ -13,6 +14,7 @@ class TaskController extends Controller
     {
         $users = User::where('role_id', 2)->get();
         $tasks = Task::all();
+        // return response($tasks);
         return view('task.admin.all', compact('tasks','users'));
     }
 
@@ -50,7 +52,7 @@ class TaskController extends Controller
         $task->user_id = $request->user_id;
         $task->status = 1;
         $task->save();
-        return redirect()->route('admin.task.index');
+        return response(['message'=> 'Successfully Asigned task!']);
     }
 
     public function show($id)
@@ -82,6 +84,13 @@ class TaskController extends Controller
         $task = Task::find($id);
         unlink('uploads/'.$task->file);
         $task->delete();
-        return back();
+        return response(['message'=> 'Successfully Deleted!']);
     }
+    // public function alltask(){
+    //     $tasks = Task::all();
+    //     return DataTables::of($tasks)
+    //             ->addColumn('action', function($tasks){
+    //                return '<a onclick="up('.$tasks->id.')" class="btn btn-xs btn-primary"> <i class="fa fa-edit">  </i> </a>'.''.'<a onclick="del('.$tasks->id.')" class="btn btn-xs btn-danger"> <i class="fa fa-trash">  </i> </a>';
+    //             })->make(true);
+    // }
 }

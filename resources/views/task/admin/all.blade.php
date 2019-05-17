@@ -24,6 +24,7 @@
         <th>Description</th>
         <th>File</th>
         <th>Asigned User</th>
+        <th>Asigned Time</th>
         <th>Deadline</th>
         <th>Status</th>
         <th>Action</th>
@@ -38,13 +39,16 @@
         <td>{{$task->description}}</td>
         <td><a href="{{asset('uploads/'.$task->file)}}" target="_blank">{{$task->file}}</a></td>
         <td>{{$task->user->name}}</td>
+        <td>{{date('d-m-Y', strtotime($task->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($task->deadline))}}</td>
         <td>
+        @php($date = date('d-m-Y', strtotime(now())))
+        @php($deadline = date('d-m-Y', strtotime($task->deadline)))
             @if($task->status == 1)
-                @if($task->deadline < now())
-                <span class="badge bg-red">Fail to Deliver</span>
-                @else
+                @if($deadline >= $date)
                 <span class="badge bg-yellow">Pending</span>
+                @else
+                <span class="badge bg-red">Fail to Deliver</span>
                 @endif
             @else
             <span class="badge bg-green">Done</span>
@@ -148,7 +152,7 @@
       type: "post",
       data: {'id':id, '_token': token},
       success: function(res){
-        console.log('ok');
+        console.log(res);   
         $('#example1').DataTable().ajax.reload();
       }
     });
@@ -168,8 +172,9 @@
                 cache: false,
                 enctype: 'multipart/form-data',
                 success: function(data){
-                  $("#addmodal").modal('hide');
-                  $('#task').reset();
+                  console.log(data);
+                  $('#addmodal').modal('hide');
+                  $('#example1 form')[0].reset();
                   $('#example1').DataTable().ajax.reload();
                 }
             });

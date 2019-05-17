@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Asia/Dhaka');
 Route::get('/', function () {
     return view('welcome');
 });
@@ -11,6 +11,7 @@ Auth::routes();
 Route::group(['as'=>'admin.', 'prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth','admin']], function(){
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('task', 'TaskController');
+    Route::get('alltask', 'TaskController@alltask')->name('alltask');
     Route::post('task-delete', 'TaskController@delete')->name('taskDelete');
 });
 

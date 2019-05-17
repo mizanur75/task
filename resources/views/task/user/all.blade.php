@@ -20,6 +20,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>File</th>
+        <th>Asigned Time</th>
         <th>Deadline</th>
         <th>Status</th>
         <th>Action</th>
@@ -33,13 +34,16 @@
         <td>{{$task->title}}</td>
         <td>{{$task->description}}</td>
         <td><a href="{{asset('uploads/'.$task->file)}}" target="_blank">{{$task->file}}</a></td>
+        <td>{{date('d-m-Y', strtotime($task->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($task->deadline))}}</td>
         <td>
+        @php($date = date('d-m-Y', strtotime(now())))
+        @php($deadline = date('d-m-Y', strtotime($task->deadline)))
           @if($task->status == 1)
-              @if($task->deadline < now())
-              <span class="badge bg-red">Fail</span>
-              @else
+              @if($deadline >= $date)
                 <span class="badge bg-yellow">Pending</span>
+              @else
+              <span class="badge bg-red">Fail</span>
               @endif
           @else
           <span class="badge bg-green">Delivered</span>
@@ -47,15 +51,15 @@
         </td>
         <td>
           @if($task->status == 1)
-              @if($task->deadline < now())
-              <span class="badge bg-red">Fail to Deliver</span>
-              @else
+              @if($deadline >= $date)
               <a href="#" onclick="update({{$task->id}})">
                 <span class="badge bg-yellow">Deliver Task</span>
               </a>
+              @else
+              <span class="badge bg-red">Fail to Deliver</span>
               @endif
           @else
-          <span class="badge bg-green">Delivered</span>
+          <span class="badge bg-green">Done</span>
           @endif
         </td>
         
@@ -74,15 +78,7 @@
 <script src="{{asset('task/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    $('#example1').DataTable();
   })
 </script>
 <script>
@@ -94,6 +90,7 @@
       dataType: "JSON",
       data: {'id':id, '_token': token},
       success: function(res){
+        console.log(res);
         $('#example1').DataTable().ajax.reload();
       }
     });

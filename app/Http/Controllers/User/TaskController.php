@@ -52,5 +52,7 @@ class TaskController extends Controller
         $id = $request->id;
         DB::table('tasks')->where('id', $id)->update(['status'=> 2]);
 
+        return response(['message'=> 'Successfully Delivered!']);
+
     }
 }
